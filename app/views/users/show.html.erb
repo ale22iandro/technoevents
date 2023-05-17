@@ -1,10 +1,15 @@
 <div class="text-center">
   <h1><%= @user.name %></h1>
-
-  <p class="buffer-top">
-    <%= link_to "Редактировать профиль", edit_user_path(@user),
-                class: 'btn btn-default' %>
-  </p>
+  <div class="rounded-circle">
+    <% if @user.avatar.present? %>
+      <%= image_tag @user.avatar %>
+    <% else %>
+      <%= image_tag user_avatar(@user) %>
+    <% end %>
+  </div>
+  <% if @user == current_user %>
+    <p class="buffer-top"><%= link_to 'Редактировать профиль', edit_user_path(@user), class: 'btn btn-default' %></p>
+  <% end %>
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -18,7 +23,3 @@
     <% end %>
   </div>
 </div>
-<%= image_tag user_avatar(@user) %>
-<% if @user == current_user %>
-  <p class="buffer-top"><%= link_to 'Редактировать профиль', edit_user_path(@user), class: 'btn btn-default' %></p>
-<% end %>

@@ -1,0 +1,22 @@
+<div class="buffer-bottom">
+  <p><%= comment.body %></p>
+  <p>
+  <div class="img-thumbnail">
+    <% if comment.image.present? %>
+      <%= image_tag comment.image %>
+    <% end %>
+  </div>
+  <span>
+      <% if comment.user.present? %>
+        <%= render partial: 'users/user', object: comment.user %>
+      <% else %>
+        <em><strong><%= comment.user_name %></strong></em>
+      <% end %>
+    </span>
+  <em><%= I18n.l(comment.created_at, format: :short) %></em>
+  <% if current_user_can_edit?(comment) %>
+    <%= button_to "Удалить коммент", event_comment_path(comment.event, comment),
+                  method: :delete, class: 'btn btn-danger', data: {confirm: "Точно удалить?"}
+    %>
+  <% end %>
+  </p>
