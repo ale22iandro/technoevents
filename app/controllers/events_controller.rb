@@ -2,7 +2,8 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
 
   def index
-    @events = Event.all
+    @events = Event.select { |event| event.datetime >= Time.now }.sort_by(&:created_at).reverse
+    @events_ex = Event.select { |event| event.datetime < Time.now }.sort_by(&:datetime).reverse
   end
 
   def show

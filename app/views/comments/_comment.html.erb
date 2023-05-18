@@ -8,7 +8,7 @@
   </div>
   <span>
       <% if comment.user.present? %>
-        <%= render partial: 'users/user', object: comment.user %>
+        <%= comment.user.name %>
       <% else %>
         <em><strong><%= comment.user_name %></strong></em>
       <% end %>

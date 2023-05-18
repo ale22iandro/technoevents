@@ -1,2 +1,16 @@
-<div id="<%= dom_id user %>">
+<div>
+  <div >
+    <% if user.avatar.present? %>
+      <%= image_tag user.avatar %>
+    <% else %>
+      <%= image_tag user_avatar(user) %>
+    <% end %>
+  </div>
+  <div class="lead">
+    <% if request.path == user_path(user) %>
+      <%= user.name %>
+    <% else %>
+      <%= link_to user.name, user_path(user) %>
+    <% end %>
+  </div>
 </div>
