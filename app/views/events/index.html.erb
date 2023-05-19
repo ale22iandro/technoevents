@@ -1,11 +1,11 @@
 <h1>Предстоящие события</h1>
 
-<div class="row buffer-bottom border rounded">
+<div class="d-flex flex-wrap align-content-stretch">
   <%= render partial: 'events/event', collection: @events %>
 </div>
 <h1>Завершенные</h1>
 
-<div class="row buffer-bottom border rounded">
+<div class="d-flex flex-wrap align-content-stretch">
   <%= render partial: 'events/event', collection: @events_ex %>
 </div>
 

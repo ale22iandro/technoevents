@@ -15,50 +15,44 @@
 </head>
 <body>
 
+<div class="container">
+  <div class="navbar navbar-expand-md navbar-light bg-light">
+    <div class="container border rounded">
+      <h1>
+        <%= link_to "Technoevents: все активности Технопарка", root_path, class: 'navbar-brand' %>
+      </h1>
+      <form class="navbar-search pull-left">
+        <input type="text" class="search-query" placeholder="Search">
+      </form>
+      <div>
+        <ul class="nav navbar-nav buffer-both">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <% if user_signed_in? %>
+              <li><%= link_to 'Создать событие', new_event_path, class: 'btn btn-success' %></li>
+              <li><%= button_to 'Профиль', user_path(current_user), method: :get, class: "btn btn-info" %></li>
+              <li><%= button_to 'Выйти', destroy_user_session_path,
+                                method: :delete, class: "btn btn-secondary" %></li>
 
-<div class="navbar navbar-expand-md navbar-light bg-light">
-  <div class="container border rounded">
-    <h1>
-      <%= link_to "Technoevents: все активности Технопарка", root_path, class: 'navbar-brand' %>
-    </h1>
-    <form class="navbar-search pull-left">
-      <input type="text" class="search-query" placeholder="Search">
-    </form>
-    <div>
-      <ul class="nav navbar-nav buffer-both">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <% if user_signed_in? %>
-            <li><%= link_to 'Создать событие', new_event_path, class: 'btn btn-success' %></li>
-            <li><%= button_to 'Профиль', user_path(current_user), method: :get, class: "btn btn-info" %></li>
-            <li><%= button_to 'Выйти', destroy_user_session_path,
-                              method: :delete, class: "btn btn-secondary" %></li>
-
-          <% else %>
-            <li><%= button_to 'Войти', new_user_session_path, class: "btn btn-secondary" %></li>
-            <li><%= button_to 'Зарегистрироваться',
-                              new_user_registration_path, method: :get, class: "btn btn-dark" %></li>
-          <% end %>
-        </div>
-      </ul>
+            <% else %>
+              <li><%= button_to 'Войти', new_user_session_path, class: "btn btn-secondary" %></li>
+              <li><%= button_to 'Зарегистрироваться',
+                                new_user_registration_path, method: :get, class: "btn btn-dark" %></li>
+            <% end %>
+          </div>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="container border rounded">
-  <div class="row">
-    <div class="col-md-12 border rounded">
-      <%= bootstrap_flash %>
-      <%= yield %>
-    </div>
-    <div class="navbar-collapse collapse navbar-responsive-collapse">
-
-    </div>
-  </div><!--/row-->
-
+  <div>
+    <%= bootstrap_flash %>
+    <%= yield %>
+  </div>
   <footer>
     <p>&copy; IKT@MAY_2023</p>
   </footer>
+</div><!--/row-->
 
-</div> <!-- /container -->
+
 </body>
 </html>
