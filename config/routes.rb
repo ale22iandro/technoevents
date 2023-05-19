@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   root "events#index"
+  get 'search/index'
+  get 'search/favorites'
+  get 'search' => 'search#index'
   resources :events do
     # Вложенный ресурс комментов
     # Нам понадобится два экшена: create и destroy

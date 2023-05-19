@@ -32,6 +32,10 @@ class SubscriptionsController < ApplicationController
     redirect_to @event, message
   end
 
+  def not_subscribed?
+    @event.subscription.include(current_user.id)
+  end
+
   private
 
   def set_subscription

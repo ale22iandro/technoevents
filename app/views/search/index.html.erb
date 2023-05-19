@@ -1,0 +1,9 @@
+<div class="search-page">
+  <% if @events.exists? %>
+    <h1>Результаты поиска:</h1>
+  <% else %>
+    <h1>Ничего не нашлось :(</h1>
+    <%= @query %>
+  <% end %>
+  <%= render 'search/search' %>
+</div>

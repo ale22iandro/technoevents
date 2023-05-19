@@ -18,7 +18,7 @@
   }
 
   .card > .card-inner {
-    padding: 10px;
+    padding: 2px;
   }
 
   .card .header h2, h3 {
@@ -26,9 +26,6 @@
     margin-top: 0px;
   }
 
-  .card .header {
-    margin-bottom: 5px;
-  }
 
   .card img {
     width: 100%;
@@ -37,6 +34,13 @@
 
 <div class="col-sm-4">
   <div class="card">
+    <div class="card-inner">
+      <div class="header">
+        <h2><%= event.title %></h2>
+        <p>Начало: <%= l(event.datetime, format: :short) %></p>
+        <p>Организует: <%= event.user.name %></p>
+      </div>
+    </div>
     <div class="image">
       <% if event.image.present? %>
         <%= link_to event_path(event) do %>
@@ -48,15 +52,6 @@
         <% end %>
       <% end %>
     </div>
-    <div class="card-inner">
-      <div class="header">
-        <h2><%= event.title %></h2>
-        <h3>Начало: <%= l(event.datetime, format: :short) %></h2>
-      </div>
-      <div class="content">
-        <p>
-          <% event.user %></p>
-      </div>
-    </div>
+
   </div>
 </div>

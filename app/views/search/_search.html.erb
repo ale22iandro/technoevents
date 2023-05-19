@@ -1,0 +1,9 @@
+<div class="user-images">
+  <% @events.each do |event| %>
+    <div class="wrapper">
+      <%= link_to event_path(event) do %>
+        <%= image_tag event.image %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
