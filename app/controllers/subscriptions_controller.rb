@@ -1,7 +1,6 @@
 class SubscriptionsController < ApplicationController
   # Задаем родительский event для подписки
   before_action :set_event, only: [:create, :destroy]
-
   # Задаем подписку, которую юзер хочет удалить
   before_action :set_subscription, only: [:destroy]
 
@@ -25,13 +24,12 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    message = {notice: I18n.t('controllers.subscriptions.destroyed')}
+    message = {alert: "Вы отписались от этого события"}
     if current_user_can_edit?(@subscription)
       @subscription.destroy
     else
       message = {alert: I18n.t('controllers.subscriptions.error')}
     end
-
     redirect_to @event, message
   end
 

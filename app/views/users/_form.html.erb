@@ -1,23 +1,34 @@
+<style>
+  .form-group {
+    margin: 4px;
+  }
+</style>
+
 <%= form_for @user, html: {multipart: true} do |f| %>
   <%= render partial: 'partials/form_errors', locals: {model: @user} %>
-
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
-
   <div class="form-group">
     <%= f.label :email %>
     <%= f.text_field :email, class: 'form-control' %>
   </div>
-
+  <div class="form-group">
+    <%= f.label 'Номер комнаты' %>
+    <%= f.text_field :room_number, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Направление обучения' %>
+    <%= f.select :section, ["ИКТ", "ИБ", "ЗХ", "Тимлид"], {include_blank: "Выберите что-нибудь из списка:"}, {:class => 'form-select'} %>
+  </div>
   <div class="form-group">
     <%= f.label "Сменить аватар" %>
     <%= f.file_field :avatar, class: 'form-control' %>
   </div>
-
   <div class="actions">
     <%= f.submit 'Сохранить', class: 'btn btn-primary' %>
     или <%= link_to 'вернуться', :back %>
   </div>
 <% end %>
+

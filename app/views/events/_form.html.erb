@@ -1,32 +1,49 @@
-<%= form_for(@event) do |f| %>
-  <%= render partial: 'partials/form_errors', locals: {model: @event} %>
+<div class="container d-flex justify-content-center">
+  <div class="col-4 ">
+    <div class="row">
 
-  <div class="form-group">
-    <%= f.label 'Название мероприятия'%>
-    <%= f.text_field :title, class: 'form-control' %>
-  </div>
+    </div>
+    <div class="row">
+      <%= form_for(@event) do |f| %>
+        <%= render partial: 'partials/form_errors', locals: {model: @event} %>
+        <div class="form-container m-lg-2">
+          <div class="form-group" style="align-items: center">
+            <%= f.label 'Название мероприятия' %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
 
-  <div class="form-group">
-    <%= f.file_field :image %>
-  </div>
+          <div class="mb-3">
+            <%= f.label "Можно загрузить картинку для привлечения внимания:", class: 'form-label mb-3' %>
+            <%= f.file_field :image, class: 'form-control' %>
+          </div>
 
-  <div class="form-select form-select-lg mb-3">
-    <%= f.label "Тип события" %>
-    <%= f.select :event_type, ["Спортивная игра", "Творчество", "Настольная игра", "Одолжите...", "Нашли/Потеряли...", "Зацените мемчик", "Другое..."] %>
-  </div>
+          <div class="mb-3">
+            <%= f.label "Тип события", class: 'form-label' %>
+            <%= f.select(:event_type, ["Спортивная игра", "Творчество", "Настольная игра", "Одолжите...", "Нашли/Потеряли...", "Зацените мемчик", "Другое..."], {include_blank: "Выберите что-нибудь из списка:"}, {:class => 'form-select'}) %>
+          </div>
 
-  <div class="form-group">
-    <%= f.label "Дата и время начала" %>
-    <p><%= f.datetime_select :datetime, class: 'form-control' %></p>
-  </div>
+          <div class="row">
+            <div class="col-md-auto form-group mb-3">
+              <%= f.label "Дата начала", class: 'form-label' %>
+              <p><%= f.date_field :date, class: 'form-control', min: DateTime.now %></p>
+            </div>
+            <div class="col-md-auto form-group mb-3">
+              <%= f.label "Время начала", class: 'form-label' %>
+              <p><%= f.time_field :time, class: 'form-control' %></p>
+            </div>
+          </div>
 
-  <div class="form-group">
-    <%= f.label 'Краткое описание' %>
-    <%= f.text_area :description, class: 'form-control' %>
-  </div>
+          <div class="form- mb-3">
+            <%= f.label 'Краткое описание' %>
+            <%= f.text_area :description, class: 'form-control' %>
+          </div>
 
-  <div class="actions">
-    <%= f.submit 'Сохранить', class: 'btn btn-primary' %>
-    или <%= link_to 'вернуться', :back %>
+          <div class="actions mb-3">
+            <%= f.submit 'Сохранить', class: 'btn btn-primary' %>
+            или <%= link_to 'вернуться', :back %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>

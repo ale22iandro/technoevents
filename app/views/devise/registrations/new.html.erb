@@ -1,29 +1,63 @@
-<h2>Регистрация</h2>
+<script>
+    const signInBtn = document.querySelector('.signin-btn');
+    const signUpBtn = document.querySelector('.signup-btn');
+    const formBox = document.querySelector('.form-box');
+    const body = document.body;
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    signUpBtn.addEventListener('click', function () {
+        formBox.classList.add('active');
+        body.classList.add('active');
+    })
+    signInBtn.addEventListener('click', function () {
+        formBox.classList.remove('active');
+        body.classList.remove('active')
+    })
+</script>
+<style>
+.form-group {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+</style>
+<div class="container d-flex justify-content-center">
+  <div class="col-4 ">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <div class="row">
+      <h2>Регистрация</h2>
+    </div>
+
+    <div class="row">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> символов минимум)</em>
+          <% end %><br/>
+          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+        </div>
+
+        <div>
+          <%= button_to new_user_registration_path, method: :get, class: 'btn btn-success' do %>
+            <i class="fa-solid fa-user-plus"></i> Зарегистрироваться
+          <% end %>
+        </div>
+
+      <% end %>
+    </div>
+    <div class="row">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> символов минимум)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Зарегистрироваться" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

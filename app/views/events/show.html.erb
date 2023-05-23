@@ -1,82 +1,72 @@
-<style>
-  .event-user img {
-    border-radius: 50%;
-    max-width: 100px;
-  }
-    .event-image img {
-      border-radius: 10px;
-    }
-
-</style>
-<div class="event">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="event-image">
-        <% if @event.image.present? %>
-          <%= image_tag @event.image %>
-        <% else %>
-          <%= image_tag 'default_event.png' %>
-        <% end %>
-      </div>
-
-      <div class="btn-group mt-3">
-        <% if current_user_can_edit?(@event) %>
-          <%= button_to 'Изменить', edit_event_path(@event), method: :get,
-                        class: 'btn btn-primary' %>
-          <%= button_to 'Удалить', event_path(@event), method: :delete, data: {confirm: "Are you sure?"},
-                        class: 'btn btn-danger' %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <h1><%= @event.title %></h1>
-      <h3>Начало: <%= l @event.datetime, format: :short %></h3>
-      <div class="event-user">
-        <h4>Организатор:</h4>
-        <p><%= render partial: 'users/user', object: @event.user %></p>
-      </div>
-      <h3>
-        <small><%= @event.event_type %></small>
-      </h3>
-      <p>Описание события:</p>
-      <p><%= @event.description %></p>
-    </div>
-  </div>
-</div>
-
-<div class="container border rounded">
-  <div class="row">
-    <div class="col-md-2">
-      <div class="event-user">
-        <h4>Участники:</h4>
-        <div>
-          <p>
-            <%= render partial: 'subscriptions/subscription',
-                       collection: @event.subscriptions.except(@new_subscription) %>
-          </p>
-        </div>
-      </div>
-      <div>
-        <% if @event.not_expired? %>
-          <% if @event.subscriptions.map { |subscription| subscription.user_id }.exclude?(current_user.id) %>
-            <%= render partial: 'subscriptions/form', locals: {
-                subscription: @new_subscription || @event.subscriptions.build
-            } %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-10">
-      <h2>Добавить комментарий:</h2>
-      <%= render partial: 'comments/form',
-                 locals: {comment: @new_comment || @event.comments.build} %>
-      <% if @event.comments.present? %>
-        <h2>Комментарии:</h2>
-        <%= render partial: 'comments/comment',
-                   collection: @event.comments.except(@new_comment) %>
+<div class="row border rounded">
+  <div class="col-md-6">
+    <div class="event-image">
+      <% if @event.image.present? %>
+        <%= image_tag @event.image %>
+      <% else %>
+        <%= image_tag 'default_event.png' %>
       <% end %>
     </div>
   </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col">
+        <h1><%= @event.title %></h1>
+        <h3>
+          <small>Тип события: <%= @event.event_type %></small>
+        </h3>
+        <h5>Начало: <%= l @event.datetime, format: :short %></h5>
+        <p>Описание события:</p>
+        <p><%= @event.description %></p>
+      </div>
+      <div class="col">
+        <div class="event-user">
+          <h4>Организатор:</h4>
+          <p><%= render partial: 'users/user', object: @event.user %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-group mt-3">
+    <% if current_user_can_edit?(@event) %>
+      <%= button_to edit_event_path(@event), method: :get, class: "btn btn-primary" do %>
+        <i class="fa fa-edit"></i> Редактировать
+      <% end %>
+      <%= button_to event_path(@event), method: :delete, class: "btn btn-danger" do %>
+        <i class="fa fa-trash"></i> Удалить
+      <% end %>
+    <% else %>
+      <% if @event.not_expired? %>
+        <% if @event.subscriptions.map { |subscription| subscription.user_id }.exclude?(current_user.id) %>
+          <%= render partial: 'subscriptions/form', locals: {
+              subscription: @new_subscription || @event.subscriptions.build
+          } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
+<div class="subscribers border rounded">
+  <h4>Участники:</h4>
+  <div class="d-flex flex-row bd-highlight flex-wrap">
+    <%= render partial: 'subscriptions/subscription',
+               collection: @event.subscriptions.except(@new_subscription) %>
+  </div>
+</div>
+<div class="add_comment border rounded">
+  <%= render partial: 'comments/form',
+             locals: {comment: @new_comment || @event.comments.build} %>
+</div>
+<div class="comments">
+  <% if @event.comments.present? %>
+    <h2>Комментарии:</h2>
+    <%= render partial: 'comments/comment',
+               collection: @event.comments.except(@new_comment) %>
+  <% end %>
+</div>
+
+
+
+
 
 

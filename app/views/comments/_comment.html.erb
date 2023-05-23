@@ -1,22 +1,43 @@
-<div>
-  <p><%= comment.body %></p>
-  <p>
-  <div class="event-image">
-    <% if comment.image.present? %>
-      <%= image_tag comment.image %>
-    <% end %>
+<section style="background-color: #e7effd;">
+  <div class="container my-5 py-5 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-11 col-lg-9 col-xl-7">
+        <div class="d-flex flex-start mb-4">
+          <div class="rounded-circle shadow-1-strong me-3" style="width: 65px;
+              height: 65px">
+            <% if comment.user.avatar.present? %>
+              <%= image_tag comment.user.avatar %>
+            <% else %>
+              <%= image_tag user_avatar(comment.user) %>
+            <% end %>
+          </div>
+          <div class="card w-100">
+            <div class="card-body p-4">
+              <div class="">
+                <h5>
+                  <% if comment.user.present? %>
+                    <%= comment.user.name %>
+                  <% else %>
+                    <em><strong><%= comment.user_name %></strong></em>
+                  <% end %></h5>
+                <p class="small"><%= l(comment.created_at.getlocal, format: :short) %> </p>
+                <p><%= comment.body %></p>
+                <div>
+                  <% if comment.image.present? %>
+
+                    <%= image_tag comment.image %>
+                  <% end %>
+                </div>
+                <% if current_user_can_edit?(comment) %>
+                  <%= button_to "Удалить коммент", event_comment_path(comment.event, comment),
+                                method: :delete, class: 'btn btn-danger', data: {confirm: "Точно удалить?"}
+                  %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <span>
-      <% if comment.user.present? %>
-        <%= comment.user.name %>
-      <% else %>
-        <em><strong><%= comment.user_name %></strong></em>
-      <% end %>
-    </span>
-  <em><%= I18n.l(comment.created_at, format: :short) %></em>
-  <% if current_user_can_edit?(comment) %>
-    <%= button_to "Удалить коммент", event_comment_path(comment.event, comment),
-                  method: :delete, class: 'btn btn-danger', data: {confirm: "Точно удалить?"}
-    %>
-  <% end %>
-  </p>
+</section>

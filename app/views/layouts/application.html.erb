@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -7,54 +7,79 @@
   <title><%= content_for?(:title) ? yield(:title) : "Technoevents" %></title>
   <%= csrf_meta_tags %>
   <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css"/>
-  <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <link rel=stylesheet href="app/assets/stylesheets/application_home.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
-<body>
+<style>
+  body {
+    background: linear-gradient(70deg, #e6e6e6, #f7f7f7);
+    color: #514B64;
+    min-height: 100vh;
+    height: 100%
+  }
 
-<div class="container border rounded">
-  <div class="navbar navbar-expand-md navbar-light bg-light">
-    <div class="container border rounded">
-      <h1>
-        <%= image_tag 'logo.png' %>
-        <%= link_to "Technoevents: все неофициальные события Технопарка", root_path, class: 'navbar-brand' %>
-      </h1>
-      <div class="m-auto">
-        <%= form_with url: search_path, method: :get, local: true, class: 'form-inline search-form' do |form| %>
-          <%= form.text_field :query, value: params[:query], class: 'form-control mr-sm-2', placeholder: 'Поиск по названию' %>
+  code {
+    background: #fff;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    margin: 0 0.3rem;
+  }
+</style>
+<body>
+<!-- NAVBAR-->
+<div class="container" style="background-color: #fff">
+  <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <div class="navbar-brand">
+        <%= image_tag 'logo.png', class: "d-inline-block align-middle mr-2", style: "height: 60px" %>
+        <span class="text-uppercase font-weight-bold">TecnoEvents</span>
+      </div>
+
+      <div><%= form_with url: search_path, method: :get, local: true, class: 'form-inline search-form' do |form| %>
+          <%= form.text_field :query, value: params[:query], class: 'form-control mr-sm-2', placeholder: 'Поиск по названию события' %>
         <% end %>
       </div>
-      <div>
-        <ul class="nav navbar-nav buffer-both">
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <% if user_signed_in? %>
-              <li><%= link_to 'Создать событие', new_event_path, class: 'btn btn-success' %></li>
-              <li><%= button_to 'Профиль', user_path(current_user), method: :get, class: "btn btn-info" %></li>
-              <li><%= button_to 'Выйти', destroy_user_session_path,
-                                method: :delete, class: "btn btn-secondary" %></li>
 
-            <% else %>
-              <li><%= button_to 'Войти', new_user_session_path, class: "btn btn-secondary" %></li>
-              <li><%= button_to 'Зарегистрироваться',
-                                new_user_registration_path, method: :get, class: "btn btn-dark" %></li>
-            <% end %>
-          </div>
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item"><%= button_to 'Создать событие', new_event_path, method: :get, class: 'btn btn-danger btn-md' %></li>
+            <li class="nav-item"><%= button_to 'Профиль', user_path(current_user), method: :get, class: "btn btn-light" %></li>
+            <li class="nav-item"><%= button_to 'Выйти', destroy_user_session_path, method: :delete, class: "btn btn-light" %></li>
+          <% else %>
+            <li class="nav-item"> <%= button_to 'Зарегистрироваться', new_user_registration_path, method: :get, class: "btn btn-light" %></li>
+            <li class="nav-item"><%= button_to 'Войти', new_user_session_path, class: "btn btn-danger" %></li>
+          <% end %>
         </ul>
       </div>
     </div>
-  </div>
 
+  </nav>
+  <h6 style="text-align: center">все события Технопарка на нашем сайте</h6>
   <div>
-    <%= bootstrap_flash %>
+    <% flash.each do |key, message| %>
+      <div class="alert <%= flash_class(key) %> alert-dismissible fade show" role="alert">
+        <%= message %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
     <%= yield %>
   </div>
   <footer>
     <p>&copy; IKT@MAY_2023</p>
   </footer>
-</div><!--/row-->
+  <script type="text/javascript">
+      $(document).ready(function () {
 
-
+          setTimeout(function () {
+              $(".alert").alert('close');
+          }, 2000);
+      });
+  </script>
+</div>
 </body>
 </html>

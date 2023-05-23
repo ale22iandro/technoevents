@@ -7,6 +7,10 @@ class EventsController < ApplicationController
   end
 
   def show
+    unless user_signed_in?
+      flash[:alert] = "You must Login first"
+      redirect_to new_user_registration_path
+    end
   end
 
   def new
@@ -19,13 +23,13 @@ class EventsController < ApplicationController
 
   def create
     @event = current_user.events.build(event_params)
-
     if @event.save
       redirect_to @event, notice: 'Event was successfully created.'
     else
       render :new
     end
   end
+
   helper_method :current_user_can_edit?
 
   def update
@@ -48,7 +52,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :event_type, :datetime, :description, :image)
+    params.require(:event).permit(:title, :event_type, :datetime, :description, :image, :date, :time)
   end
 
   def set_current_user_event

@@ -19,7 +19,7 @@ class Subscription < ApplicationRecord
 
   # Если есть юзер, выдаем его имя,
   # если нет – дергаем исходный метод
-  def user_name
+  def name
     if user.present?
       user.name
     else
