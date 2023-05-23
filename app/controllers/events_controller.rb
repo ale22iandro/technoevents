@@ -8,7 +8,7 @@ class EventsController < ApplicationController
 
   def show
     unless user_signed_in?
-      flash[:alert] = "You must Login first"
+      flash[:alert] = "Сначала зарегистрируйся, юный падаван"
       redirect_to new_user_registration_path
     end
   end

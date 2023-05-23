@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: 'Спасибо. Мы обновили Ваши данные.'
     else
       render :edit
     end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   # Пропишем, что разрешено передавать в params
   def user_params
-    params.require(:user).permit(:name, :email, :avatar)
+    params.require(:user).permit(:name, :email, :avatar, :room_number, :section)
   end
 
   def set_current_user

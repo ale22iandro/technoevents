@@ -2,8 +2,8 @@
   <div class="event-user" style="max-width: 80px">
     <%= render partial: 'users/user', object: subscription.user %>
     <% if current_user_can_edit?(subscription) %>
-      <%= button_to event_subscription_path(subscription.event, subscription), method: :delete, class: "btn btn-danger" do %>
-        <i class="fa-solid fa-user-minus"></i>
+      <%= button_to event_subscription_path(subscription.event, subscription), method: :delete do %>
+        <i class="fa-solid fa-user-slash"></i>
       <% end %>
     <% end %>
   </div>

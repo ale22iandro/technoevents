@@ -1,17 +1,11 @@
 class SearchController < ApplicationController
   def index
-    @events = Event.where("title like ?", "%#{params[:query]}%")
+    @events = Event.select {|event| event.title.downcase == params[:query].downcase}.map
+    @query = params[:query]
   end
 
-  def favorites
-    @event = Event.all
-    liked_events = []
-    @events.each do |event|
-      if event.liked?(current_user)
-        liked_events << event
-      end
-    end
-    @events = liked_events
-    render 'favorites'
+  def user_events(user_e)
+    @events = Event.select{|event| event.user.email == user_e.email}
+    render 'user_events_index'
   end
 end

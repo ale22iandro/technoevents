@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'search/index'
   get 'search/favorites'
   get 'search' => 'search#index'
+  get 'search_event' => 'search#user_events'
   resources :events do
     # Вложенный ресурс комментов
     # Нам понадобится два экшена: create и destroy
