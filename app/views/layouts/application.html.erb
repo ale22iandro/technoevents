@@ -13,21 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
-<style>
-  body {
-    background: linear-gradient(70deg, #e6e6e6, #f7f7f7);
-    color: #514B64;
-    min-height: 100vh;
-    height: 100%
-  }
 
-  code {
-    background: #fff;
-    padding: 0.2rem;
-    border-radius: 0.2rem;
-    margin: 0 0.3rem;
-  }
-</style>
 <body>
 <!-- NAVBAR-->
 <div class="container" style="background-color: #fff">
@@ -46,12 +32,12 @@
       <div class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
-            <li class="nav-item"><%= button_to 'Создать событие', new_event_path, method: :get, class: 'btn btn-danger btn-md' %></li>
-            <li class="nav-item"><%= button_to 'Мой профиль', user_path(current_user), method: :get, class: "btn btn-light" %></li>
-            <li class="nav-item"><%= button_to 'Выйти', destroy_user_session_path, method: :delete, class: "btn btn-light" %></li>
+            <li class="nav-item"><%= button_to 'Создать событие', new_event_path, method: :get, class: 'btn btn-danger btn-md m-1' %></li>
+            <li class="nav-item"><%= button_to 'Мой профиль', user_path(current_user), method: :get, class: "btn btn-light m-1" %></li>
+            <li class="nav-item"><%= button_to 'Выйти', destroy_user_session_path, method: :delete, class: "btn btn-light m-1" %></li>
           <% else %>
-            <li class="nav-item"> <%= button_to 'Зарегистрироваться', new_user_registration_path, method: :get, class: "btn btn-light" %></li>
-            <li class="nav-item"><%= button_to 'Войти', new_user_session_path, class: "btn btn-danger" %></li>
+            <li class="nav-item"> <%= button_to 'Зарегистрироваться', new_user_registration_path, method: :get, class: "btn btn-light m-1" %></li>
+            <li class="nav-item"><%= button_to 'Войти', new_user_session_path, class: "btn btn-danger m-1" %></li>
           <% end %>
         </ul>
       </div>
