@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+  root "events#index"
+  get 'search/index'
   resources :subscriptions
   resources :comments
   devise_for :users
   resources :users
-  root "events#index"
-  get 'search/index'
   get 'search/favorites'
   get 'search' => 'search#index'
   get 'search_event' => 'search#user_events'

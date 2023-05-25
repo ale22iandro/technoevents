@@ -20,6 +20,7 @@ ru:
       destroyed: 'Комментарий успешно удалён'
     subscriptions:
       created: 'Успешно подписались на событие'
+      error: ""
 
   # Перевод моделей
   activerecord:

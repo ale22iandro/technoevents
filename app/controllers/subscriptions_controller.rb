@@ -6,7 +6,6 @@ class SubscriptionsController < ApplicationController
 
 
   def create
-    # Болванка для новой подписки
     @new_subscription = @event.subscriptions.build(subscription_params)
     @new_subscription.user = current_user
 
@@ -19,7 +18,7 @@ class SubscriptionsController < ApplicationController
       redirect_to @event, notice: I18n.t('controllers.subscriptions.created')
     else
       # если ошибки — рендерим шаблон события
-      render 'events/show', alert: I18n.t('controllers.subscriptions.error')
+      render 'events/show'
     end
   end
 

@@ -4,8 +4,6 @@ class EventMailer < ApplicationMailer
     @name = subscription.name
     @event = event
 
-    # Берём у юзер его email
-    # Subject тоже можно переносить в локали
     mail to: event.user.email, subject: "Новая подписка на #{event.title}"
   end
 

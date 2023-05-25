@@ -16,7 +16,7 @@
 
 <body>
 <!-- NAVBAR-->
-<div class="container" style="background-color: #fff">
+<div class="container" style="background-color: #fff; height: 1vh">
   <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
     <div class="container">
       <div class="navbar-brand">
@@ -25,7 +25,8 @@
       </div>
 
       <div><%= form_with url: search_path, method: :get, local: true, class: 'form-inline search-form' do |form| %>
-          <%= form.text_field :query, value: params[:query], class: 'form-control mr-sm-2', placeholder: 'Поиск по названию события' %>
+          <%= form.text_field :query, value: params[:query], class: 'form-control mr-sm-2',
+                              placeholder: 'Поиск по названию события' %>
         <% end %>
       </div>
 
